@@ -1,4 +1,4 @@
-A simple E- Commerce Web Application
+A simple E- Commerce Web Application using java servlet and jsp.
 
 --Main Functionalities:
 *Home Page
