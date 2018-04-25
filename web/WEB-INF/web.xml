@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <listener>
+        <description>ServletContextListener</description>
+        <listener-class>listeners.ContextListener</listener-class>
+    </listener>
+    <servlet>
+        <servlet-name>GetHome</servlet-name>
+        <servlet-class>servlets.users.GetHome</servlet-class>
+    </servlet>
+    
+    <servlet>
+        <servlet-name>GetDetails</servlet-name>
+        <servlet-class>servlets.users.GetDetails</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetImage</servlet-name>
+        <servlet-class>servlets.users.GetImage</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>getAllProducts</servlet-name>
+        <servlet-class>servlets.users.getAllProducts</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetProducts</servlet-name>
+        <servlet-class>servlets.users.GetProducts</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetHome</servlet-name>
+        <url-pattern>/GetHome</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetDetails</servlet-name>
+        <url-pattern>/GetDetails</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetImage</servlet-name>
+        <url-pattern>/GetImage</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>getAllProducts</servlet-name>
+        <url-pattern>/getAllProducts</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetProducts</servlet-name>
+        <url-pattern>/GetProducts</url-pattern>
+    </servlet-mapping>
+     <error-page>  
+        <error-code>404</error-code>  
+        <location>/404.jsp</location>  
+    </error-page>  
+       <error-page>  
+        <error-code>500</error-code>  
+        <location>/404.jsp</location>  
+    </error-page> 
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>security</web-resource-name>
+            <http-method> GET </http-method>
+            <http-method> PUT </http-method>
+            <http-method> DELETE </http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>admin</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <login-config>
+        <auth-method>FORM</auth-method>
+        <form-login-config>
+            <form-login-page>/admin_logIn.jsp</form-login-page>
+            <form-error-page>/404.jsp</form-error-page>
+        </form-login-config>
+    </login-config>
+    <filter>
+        <filter-name>CookieEnabledFilter1</filter-name>
+        <filter-class>filters.Check_cookieEnabledFilter1</filter-class>
+    </filter>
+    <filter>
+        <filter-name>CookieEnabledFilter2 </filter-name>
+        <filter-class>filters.Check_cookieEnabledFilter2</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>CookieEnabledFilter1</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>CookieEnabledFilter2</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <listener>
+        <listener-class>listeners.ContextListener </listener-class>
+    </listener>
+</web-app>
