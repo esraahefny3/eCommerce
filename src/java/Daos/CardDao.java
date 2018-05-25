@@ -32,8 +32,6 @@ public class CardDao implements  CardInterface{
     private DataBaseManager dbm = new DataBaseManager();
     private Connection con;
 
-    
-    
       @Override
     public ArrayList<Card> selectAllUserCards(User user) {
          dbm = new DataBaseManager();
