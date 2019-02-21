@@ -1,0 +1,81 @@
+
+CREATE DATABASE eCommerce;
+
+use eCommerce;
+
+CREATE TABLE `user` (
+  `id` int(255) AUTO_INCREMENT primary key,
+  `fullName` varchar(50) NOT NULL,
+  `email` varchar(100) unique NOT NULL ,
+  `password` varchar(30)  NOT NULL ,
+  `phone` varchar(11),
+  `address` varchar(200),
+  `country` varchar(25),
+  `credit` DOUBLE (100,20) NOT NULL default 0,
+  `job` varchar(30),
+  `noOfUsedCards` int (10) not null default 0,
+  `birthDate` date,
+  `isAdmin` tinyint(1) DEFAULT '0'
+);
+
+
+CREATE TABLE `creditCard` (
+  `code` varchar(15) primary key,
+  `value` int(50) not null,
+  `charged` TINYINT(1) default 0,
+  `userId` int(255),
+  FOREIGN KEY (userId) REFERENCES user(id)
+);
+
+
+CREATE TABLE `order` (
+  `id` int(255) AUTO_INCREMENT primary key,
+  `orderDate` TIMESTAMP not null,
+  `checkedOut` TINYINT(1) not null,
+  `userId` int(255) not null,
+  `orderAddress` varchar(200) not null,
+  FOREIGN KEY (userId) REFERENCES user(id)
+);
+
+
+CREATE TABLE `category` (
+  `id`int(255) AUTO_INCREMENT primary key,
+  `name` varchar(50) unique,
+  `description` varchar(1000)
+);
+
+
+CREATE TABLE `product` (
+  `id`int(255) AUTO_INCREMENT primary key,
+  `name` varchar(50) not null,
+  `categoryId` int(255) not null,
+  `companyName` varchar(50) ,
+  `quantity` int(100) not null,
+  `description` text,
+  `image` MEDIUMBLOB ,
+  `postedDate` TIMESTAMP not null,
+  `price` DOUBLE (100,20) not null,
+  FOREIGN KEY (categoryId) REFERENCES category(id) on delete cascade
+);
+
+
+
+CREATE TABLE `order_product` (
+  `productId`int(255) not null,
+  `orderId` int(255) not null,
+  `noOfItems` int(100) not null default 1,
+  `purc_price` DOUBLE (100,20) not null,
+  primary key(productId,orderId),
+  FOREIGN KEY (productId) REFERENCES product(id) on delete cascade,
+  FOREIGN KEY (orderId) REFERENCES `order`(id) on delete cascade
+);
+
+
+CREATE TABLE `customer_interests` (
+  `userId` int(255) ,
+  `categoryId` int(255),
+  PRIMARY KEY (userId,categoryId),
+  FOREIGN KEY (userId) REFERENCES user(id),
+  FOREIGN KEY (categoryId) REFERENCES category(id) on delete cascade
+);
+
